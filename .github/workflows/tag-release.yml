@@ -1,0 +1,31 @@
+name: Tag Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  process_tag_release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Print hello world
+        run: |
+          echo "Hello World! 🌍"
+          echo "Tag ${{ github.ref_name }} has been pushed!"
+
+      - name: Display tag information
+        run: |
+          echo "## Tag Release Triggered 🏷️" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "- **Tag**: ${{ github.ref_name }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Commit SHA**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Repository**: ${{ github.repository }}" >> $GITHUB_STEP_SUMMARY
+          echo "- **Triggered by**: Tag push event" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Hello World!** 👋" >> $GITHUB_STEP_SUMMARY 
