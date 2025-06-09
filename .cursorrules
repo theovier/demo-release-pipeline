@@ -1,0 +1,124 @@
+# Cursor Rules for CI/CD Development - TypeScript/React with GitHub Actions
+
+## Project Context
+You are working on a modern TypeScript/React project with a focus on building robust CI/CD pipelines using GitHub Actions. This project emphasizes automation, testing, and deployment best practices.
+
+## Technology Stack
+- **Frontend**: React 18+ with TypeScript
+- **Build Tool**: Vite or Webpack
+- **Package Manager**: npm or yarn
+- **CI/CD**: GitHub Actions
+- **Testing**: Jest, React Testing Library, Playwright/Cypress for E2E
+- **Linting**: ESLint, Prettier, TypeScript compiler
+- **Deployment**: Docker, AWS/Vercel/Netlify
+
+## Development Guidelines
+
+### Code Quality Standards
+- Always use TypeScript with strict mode enabled
+- Follow React best practices (hooks, functional components)
+- Implement proper error boundaries and error handling
+- Use semantic versioning for releases
+- Maintain 80%+ test coverage
+
+### CI/CD Best Practices
+- **Pipeline Security**: Never expose secrets in logs, use GitHub secrets properly
+- **Build Optimization**: Cache dependencies and build artifacts
+- **Testing Strategy**: Unit tests → Integration tests → E2E tests → Security scans
+- **Deployment Strategy**: Blue/green or rolling deployments with rollback capability
+- **Monitoring**: Include health checks and deployment verification
+
+### GitHub Actions Conventions
+- Use descriptive workflow names and job names
+- Group related steps logically
+- Use official actions when possible (@actions/checkout, @actions/setup-node)
+- Implement proper matrix builds for multiple Node.js versions
+- Use conditional steps and jobs based on branch/event type
+- Always include timeout settings for jobs
+- Use workflow templates for reusability
+
+### File Structure Preferences
+```
+.github/
+  workflows/
+    ci.yml              # Main CI pipeline
+    cd.yml              # Deployment pipeline  
+    release.yml         # Release automation
+    security.yml        # Security scanning
+  actions/              # Custom composite actions
+  templates/            # Reusable workflow templates
+src/
+  components/
+  hooks/
+  utils/
+  __tests__/
+scripts/
+  build/
+  deploy/
+  setup/
+```
+
+### Naming Conventions
+- **Workflows**: Use kebab-case (e.g., `continuous-integration.yml`)
+- **Jobs**: Use snake_case (e.g., `build_and_test`)
+- **Steps**: Use descriptive names with action verbs
+- **Branches**: Use conventional naming (feature/, bugfix/, hotfix/, release/)
+- **Tags**: Follow semantic versioning (v1.2.3)
+
+### Environment Management
+- **Development**: Feature branch deployments to dev environment
+- **Staging**: Main branch deployments for pre-production testing
+- **Production**: Tagged releases with approval gates
+- **Pull Requests**: Deploy preview environments for review
+
+### Security Considerations
+- Scan dependencies for vulnerabilities (npm audit, Snyk)
+- Use OIDC for cloud provider authentication when possible
+- Implement secrets scanning in commits
+- Use least privilege principle for GitHub token permissions
+- Enable branch protection rules with required status checks
+
+### Performance Optimization
+- Use build caching strategies (npm cache, Docker layer caching)
+- Parallelize independent jobs and steps
+- Use artifacts for sharing data between jobs
+- Implement incremental builds when possible
+- Monitor build times and optimize bottlenecks
+
+### Code Generation Instructions
+When creating GitHub Actions workflows:
+1. Always include proper error handling and failure notifications
+2. Use environment-specific configurations
+3. Include proper logging and debugging information
+4. Implement rollback mechanisms for deployments
+5. Add manual approval steps for production deployments
+6. Use composite actions for repeated logic
+7. Include performance monitoring and alerting
+
+### Testing Strategy
+- **Unit Tests**: Run on every push/PR
+- **Integration Tests**: Run on main branch and PRs
+- **E2E Tests**: Run on staging deployments
+- **Performance Tests**: Run on release candidates
+- **Security Tests**: Run daily and on releases
+
+### Deployment Patterns
+- Use blue/green deployments for zero-downtime
+- Implement canary releases for gradual rollouts
+- Include database migration strategies
+- Set up proper monitoring and alerting
+- Use feature flags for controlled releases
+
+### Documentation Standards
+- Document all custom actions and workflows
+- Include README files for setup instructions
+- Maintain changelog for releases
+- Document environment variables and secrets
+- Include troubleshooting guides
+
+## Communication Style
+- Be direct and technical - assume advanced knowledge
+- Focus on automation and efficiency
+- Provide actionable recommendations
+- Include relevant code examples and best practices
+- Consider scalability and maintainability in all suggestions 
