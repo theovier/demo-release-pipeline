@@ -5,6 +5,9 @@ on:
     branches:
       - pre-release
 
+permissions:
+  contents: write
+
 jobs:
   create_and_push_tag:
     runs-on: ubuntu-latest
