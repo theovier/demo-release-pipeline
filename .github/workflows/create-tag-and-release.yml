@@ -1,4 +1,4 @@
-name: Create Pre-Release Tag
+name: Create Tag and Release
 
 on:
   push:
@@ -9,7 +9,7 @@ permissions:
   contents: write
 
 jobs:
-  create_and_push_tag:
+  create_tag_and_process:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     
@@ -18,7 +18,6 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          token: ${{ secrets.PAT_TOKEN }}
 
       - name: Configure Git
         run: |
@@ -60,11 +59,18 @@ jobs:
           
           echo "Successfully created and pushed tag: $NEW_TAG"
 
-      - name: Create release summary
+      - name: Print hello world
         run: |
-          echo "## Pre-Release Tag Created 🚀" >> $GITHUB_STEP_SUMMARY
+          echo "Hello World! 🌍"
+          echo "Tag ${{ steps.calculate_version.outputs.new_tag }} has been created and pushed!"
+
+      - name: Create combined summary
+        run: |
+          echo "## Tag Created and Processed 🚀" >> $GITHUB_STEP_SUMMARY
           echo "" >> $GITHUB_STEP_SUMMARY
           echo "- **Previous Tag**: ${{ steps.calculate_version.outputs.latest_tag || 'None' }}" >> $GITHUB_STEP_SUMMARY
           echo "- **New Tag**: ${{ steps.calculate_version.outputs.new_tag }}" >> $GITHUB_STEP_SUMMARY
           echo "- **Branch**: pre-release" >> $GITHUB_STEP_SUMMARY
-          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY 
+          echo "- **Commit**: ${{ github.sha }}" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "**Hello World!** 👋" >> $GITHUB_STEP_SUMMARY 
